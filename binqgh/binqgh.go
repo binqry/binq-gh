@@ -2,5 +2,5 @@ package binqgh
 
 const (
 	EnvBinqPath = "BINQ_BIN"
-	Version     = "0.1.0"
+	Version     = "0.1.1"
 )
