@@ -112,7 +112,7 @@ func (c *CLI) Run(args []string) (exit int) {
 		return exitNG
 	}
 
-	ghLatestVersion := strings.TrimPrefix(*latestRelease.Name, "v")
+	ghLatestVersion := releaseNameToVersion(*latestRelease.Name)
 	if obj.Latest.Version == ghLatestVersion {
 		fmt.Fprintf(c.OutStream, "Manifest is up-to-date. Nothing to do\n")
 		return exitOK
@@ -203,6 +203,17 @@ func readAndDecodeItemJSONFile(file string) (raw []byte, obj *item.Item, err err
 		return raw, obj, err
 	}
 	return raw, obj, nil
+}
+
+func releaseNameToVersion(relver string) (version string) {
+	re := regexp.MustCompile(`\d(?:[\d\.]*\d)?(?:\-[\w\-]+)?`)
+	if re.MatchString(relver) {
+		matched := re.FindStringSubmatch(relver)
+		return matched[0]
+	}
+
+	lv.Errorf("Can't parse release version as version: %s", relver)
+	return ""
 }
 
 func (c *CLI) getChecksumsByAssetURL(uri string) (sums []item.ItemChecksum, err error) {
