@@ -296,7 +296,7 @@ func (c *CLI) getChecksumsByNestedMap(nm nestedMapOfReleaseAsset) (
 	return sums, nil
 }
 
-// getChecksumValueByAssetURL returns first string element in first line of response text
+// getChecksumValueByAssetURL returns first word of response text
 func (c *CLI) getChecksumValueByAssetURL(uri string) (val string, err error) {
 	res, err := doHTTPGetRequest(uri, map[string]string{}, 5*time.Second)
 	if err != nil {
@@ -309,12 +309,13 @@ func (c *CLI) getChecksumValueByAssetURL(uri string) (val string, err error) {
 	}
 
 	scanner := bufio.NewScanner(res.Body)
+	scanner.Split(bufio.ScanWords)
 	scanner.Scan()
 	if err = scanner.Err(); err != nil {
 		fmt.Fprintf(c.ErrStream, "Error! Failed to read response body. %v", err)
 		return val, err
 	}
-	val = strings.Fields(scanner.Text())[0]
+	val = scanner.Text()
 	return val, nil
 }
 
