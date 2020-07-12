@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"bufio"
 	"context"
 	"crypto/sha256"
 	"encoding/hex"
@@ -124,11 +125,18 @@ func (c *CLI) Run(args []string) (exit int) {
 	if len(latestRelease.Assets) > 0 {
 		fmt.Fprintf(c.ErrStream, "Fetching bundled assets ...\n")
 		var checksums *github.ReleaseAsset
+		var checksumOfNameAndType = nestedMapOfReleaseAsset{}
 		var downloads []*github.ReleaseAsset
 		for _, asset := range latestRelease.Assets {
 			lv.Debugf("Name: %s, DL URL: %s", *asset.Name, *asset.BrowserDownloadURL)
 			if *asset.Name == "checksums.txt" {
 				checksums = asset
+			} else if strings.HasSuffix(*asset.Name, ".sha256") {
+				name := strings.TrimSuffix(*asset.Name, ".sha256")
+				checksumOfNameAndType.set(name, "sha256", asset)
+			} else if strings.HasSuffix(*asset.Name, ".md5") {
+				name := strings.TrimSuffix(*asset.Name, ".md5")
+				checksumOfNameAndType.set(name, "md5", asset)
 			} else {
 				downloads = append(downloads, asset)
 			}
@@ -137,6 +145,12 @@ func (c *CLI) Run(args []string) (exit int) {
 		if checksums != nil {
 			fmt.Fprintf(c.ErrStream, "GET %s\n", *checksums.BrowserDownloadURL)
 			sums, err = c.getChecksumsByAssetURL(*checksums.BrowserDownloadURL)
+			if err != nil {
+				return exitNG
+			}
+		}
+		if len(sums) == 0 && len(checksumOfNameAndType) > 0 {
+			sums, err = c.getChecksumsByNestedMap(checksumOfNameAndType)
 			if err != nil {
 				return exitNG
 			}
@@ -246,6 +260,62 @@ func (c *CLI) getChecksumsByAssetURL(uri string) (sums []item.ItemChecksum, err 
 	}
 
 	return sums, nil
+}
+
+func (c *CLI) getChecksumsByNestedMap(nm nestedMapOfReleaseAsset) (
+	sums []item.ItemChecksum, err error) {
+
+	for name, stash := range nm {
+		lv.Debugf("getChecksumsByNestedMap: name: %s", name)
+		var asset *github.ReleaseAsset
+		var kind item.ChecksumType
+		// sha256 takes first place
+		if stash["sha256"] != nil {
+			asset = stash["sha256"]
+			kind = item.ChecksumTypeSHA256
+		} else if stash["md5"] != nil {
+			asset = stash["md5"]
+			kind = item.ChecksumTypeMD5
+		} else {
+			// Unexpected
+			err = fmt.Errorf("Unknown type of stash: %+v, name: %s", stash, name)
+			lv.Errorf("%s", err)
+			return sums, err
+		}
+		val, err := c.getChecksumValueByAssetURL(*asset.BrowserDownloadURL)
+		if err != nil {
+			lv.Errorf("Failed to fetch checksum value. File: %s, URL: %s, Error: %v",
+				name, *asset.BrowserDownloadURL, err)
+			return sums, err
+		}
+		sum := item.ItemChecksum{File: name}
+		sum.SetSum(val, kind)
+		sums = append(sums, sum)
+	}
+
+	return sums, nil
+}
+
+// getChecksumValueByAssetURL returns first string element in first line of response text
+func (c *CLI) getChecksumValueByAssetURL(uri string) (val string, err error) {
+	res, err := doHTTPGetRequest(uri, map[string]string{}, 5*time.Second)
+	if err != nil {
+		return "", err
+	}
+	defer res.Body.Close()
+	if res.StatusCode != 200 {
+		fmt.Fprintf(c.ErrStream, "Error! HTTP response is not OK. Code: %d\n", res.StatusCode)
+		return "", err
+	}
+
+	scanner := bufio.NewScanner(res.Body)
+	scanner.Scan()
+	if err = scanner.Err(); err != nil {
+		fmt.Fprintf(c.ErrStream, "Error! Failed to read response body. %v", err)
+		return val, err
+	}
+	val = strings.Fields(scanner.Text())[0]
+	return val, nil
 }
 
 func (c *CLI) getChecksumOfAsset(asset *github.ReleaseAsset) (sum item.ItemChecksum, err error) {

@@ -42,6 +42,7 @@ func newHTTPGetRequest(url string, headers map[string]string) (req *http.Request
 func doHTTPGetRequest(
 	uri string, headers map[string]string, timeout time.Duration) (res *http.Response, err error) {
 
+	lv.Debugf("GET %s", uri)
 	req, err := newHTTPGetRequest(uri, headers)
 	if err != nil {
 		lv.Errorf("Failed to create HTTP request. %v\n", err)
