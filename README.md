@@ -1,20 +1,20 @@
 # binq-gh
 
-GitHub flavored wrapper CLI for [progrhyme/binq](https://github.com/progrhyme/binq).
+GitHub flavored wrapper CLI for [binqry/binq](https://github.com/binqry/binq).
 
 This tool fetches latest GitHub release of a binq item and update the item JSON file.
 
 # Install
 
 - Homebrew (or Linuxbrew) using Tap [progrhyme/taps](https://github.com/progrhyme/homebrew-taps)
-- Download from [GitHub releases](https://github.com/progrhyme/binq-gh/releases)
-- `go get github.com/progrhyme/binq-gh/cmd/binq-gh`
+- Download from [GitHub releases](https://github.com/binqry/binq-gh/releases)
+- `go get github.com/binqry/binq-gh/cmd/binq-gh`
 
 # Requirements
 
 To run this CLI, following software are needed:
 
-- [binq](https://github.com/progrhyme/binq) command is installed
+- [binq](https://github.com/binqry/binq) command is installed
 
 # Usage
 
@@ -24,7 +24,7 @@ binq-gh path/to/item.json [-t|--token GITHUB_TOKEN] \
   [-L|--log-level LOG_LEVEL] [-y|--yes]
 ```
 
-Refer to [progrhyme/binq](https://github.com/progrhyme/binq) for Item JSON of `binq`.
+Refer to [binqry/binq](https://github.com/binqry/binq) for Item JSON of `binq`.
 
 If the URL format in item JSON does not match https://github.com/, `binq-gh` does nothing.
 

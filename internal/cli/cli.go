@@ -16,10 +16,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/binqry/binq-gh/binqgh"
+	"github.com/binqry/binq-gh/internal/erron"
+	"github.com/binqry/binq/schema/item"
 	"github.com/google/go-github/v32/github"
-	"github.com/progrhyme/binq-gh/binqgh"
-	"github.com/progrhyme/binq-gh/internal/erron"
-	"github.com/progrhyme/binq/schema/item"
 	"github.com/progrhyme/go-lv"
 	"github.com/spf13/pflag"
 )
@@ -83,7 +83,7 @@ func (c *CLI) Run(args []string) (exit int) {
 		return exitNG
 	}
 
-	param := item.ItemURLParam{
+	param := item.FormatParam{
 		OS: runtime.GOOS, Arch: runtime.GOARCH,
 	}
 	uri, err := obj.GetLatestURL(param)

@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/progrhyme/binq-gh/binqgh"
-	"github.com/progrhyme/binq-gh/internal/erron"
+	"github.com/binqry/binq-gh/binqgh"
+	"github.com/binqry/binq-gh/internal/erron"
 	"github.com/progrhyme/go-lv"
 )
 
