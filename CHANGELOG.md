@@ -1,3 +1,11 @@
+## 0.3.0 (2020-07-13)
+
+Change:
+
+- Transfer repository from github.com/progrhyme/binq-gh to github.com/binqry/binq-gh for commonization
+
+No other code change is included.
+
 ## 0.2.0 (2020-07-12)
 
 Enhance:
