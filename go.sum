@@ -1,7 +1,7 @@
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/andybalholm/brotli v0.0.0-20190621154722-5f990b63d2d6/go.mod h1:+lx6/Aqd1kLJ1GQfkvOnaZ1WGmLpMpbprPuIOOZX30U=
-github.com/binqry/binq v0.7.0 h1:XnmEiA0E7j+J6Y7Pj/76eLqGmrxlRftULKM10CHn2jc=
-github.com/binqry/binq v0.7.0/go.mod h1:NJ7O+THfOERi0XuLKdOBa3oXlxt9ctui/g0VnJA0g2Q=
+github.com/binqry/binq v0.8.1 h1:n7i6jcNee34qA/PzT9EppYFdSXoMh85X7FjgOimLq1w=
+github.com/binqry/binq v0.8.1/go.mod h1:O3sS+H/A2XDx5E2fd17Qh3MaGqroT+KH8KcQSk2fr6E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dsnet/compress v0.0.1/go.mod h1:Aw8dCMJ7RioblQeTqt88akK31OvO8Dhf5JflhBbQEHo=
 github.com/dsnet/golib v0.0.0-20171103203638-1ea166775780/go.mod h1:Lj+Z9rebOhdfkVLjJ8T6VcRQv3SXugXy999NBtR9aFY=
@@ -27,8 +27,8 @@ github.com/mholt/archiver/v3 v3.3.0/go.mod h1:YnQtqsp+94Rwd0D/rk5cnLrxusUBUXg+08
 github.com/nwaples/rardecode v1.0.0/go.mod h1:5DzqNKiOdpKKBH87u8VlvAnPZMXcGRhxWkRpHbbfGS0=
 github.com/pierrec/lz4 v2.0.5+incompatible/go.mod h1:pdkljMzZIN41W+lC3N2tnIh5sFi+IEE17M5jbnwPHcY=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/progrhyme/go-lv v0.3.1 h1:KJTRzAoDH4iWkyIPSYHqzPUlSKT5IgGbhg/boeYy7as=
-github.com/progrhyme/go-lv v0.3.1/go.mod h1:ZofYlosFb/D5uG6Z0Ldh/yp5iLmcnABd0NJUARwfTBo=
+github.com/progrhyme/go-lv v0.4.1 h1:0fWDA2B/2iJExb6i+8hOy+66tQR91lvZfwkRikcd6fs=
+github.com/progrhyme/go-lv v0.4.1/go.mod h1:ZofYlosFb/D5uG6Z0Ldh/yp5iLmcnABd0NJUARwfTBo=
 github.com/spf13/pflag v1.0.5 h1:iy+VFUOCP1a+8yFto/drg2CJ5u0yRoB7fZw3DKv/JXA=
 github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
