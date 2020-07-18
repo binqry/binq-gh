@@ -27,6 +27,7 @@ brews:
     name: homebrew-taps
     token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
   folder: Formula
+  homepage: https://github.com/binqry/binq-gh
   description: Wrapper CLI for binq with GitHub features
   test: |
     system "#{bin}/binq-gh", '--version'
