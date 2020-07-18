@@ -21,3 +21,12 @@ snapshot:
   name_template: "{{ .Tag }}-next"
 changelog:
   skip: true
+brews:
+- tap:
+    owner: progrhyme
+    name: homebrew-taps
+    token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+  folder: Formula
+  description: Wrapper CLI for binq with GitHub features
+  test: |
+    system "#{bin}/binq-gh", '--version'
