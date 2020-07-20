@@ -24,7 +24,7 @@ changelog:
 brews:
 - tap:
     owner: progrhyme
-    name: homebrew-taps
+    name: homebrew-tap
     token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
   folder: Formula
   homepage: https://github.com/binqry/binq-gh

@@ -6,7 +6,7 @@ This tool fetches latest GitHub release of a binq item and update the item JSON 
 
 # Install
 
-- Homebrew (or Linuxbrew) using Tap [progrhyme/taps](https://github.com/progrhyme/homebrew-taps)
+- Homebrew (or Linuxbrew) using Tap [progrhyme/tap](https://github.com/progrhyme/homebrew-tap)
 - Download from [GitHub releases](https://github.com/binqry/binq-gh/releases)
 - `go get github.com/binqry/binq-gh/cmd/binq-gh`
 
